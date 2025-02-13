@@ -20,6 +20,7 @@ async fn main() {
     let api_routes = Router::new()
         .route("/", get(api_handler))
         .nest("/health", routes::health::router())
+        .nest("/articles", routes::articles::router())
         .layer(Extension(pool));
 
     // Define the route for `/api`
