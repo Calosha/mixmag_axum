@@ -1,11 +1,8 @@
 use crate::schema::article::dsl::*;
 use crate::{config::database::DbPool, models::article::Article};
-use axum::response::Json;
+use axum::{extract::Extension, Json};
 use diesel::prelude::*;
 use serde_json::json;
-
-use crate::schema::article::dsl::*;
-use diesel::prelude::*;
 
 pub async fn get_articles(
     Extension(pool): Extension<DbPool>,
