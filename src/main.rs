@@ -1,11 +1,8 @@
 use axum::{routing::get, Extension, Router};
+use mixmag_axum::config::database::{establish_connection_pool_with_config, DatabaseConfig};
+use mixmag_axum::routes;
 use tokio::net::TcpListener;
-
-mod config;
-mod models;
-mod routes;
-mod schema;
-mod services;
+use tracing_subscriber;
 
 async fn api_handler() -> &'static str {
     "This is the API endpoint"
@@ -14,7 +11,12 @@ async fn api_handler() -> &'static str {
 #[tokio::main]
 async fn main() {
     dotenvy::dotenv().ok();
-    let pool = config::database::establish_connection_pool();
+    tracing_subscriber::fmt::init();
+
+    let db_config = DatabaseConfig::new()
+        .with_max_connections(10)
+        .with_min_connections(5);
+    let pool = establish_connection_pool_with_config(db_config);
 
     // Define other routes
     let api_routes = Router::new()

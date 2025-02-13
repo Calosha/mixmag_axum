@@ -37,6 +37,7 @@ impl DatabaseConfig {
     }
 }
 
+#[allow(dead_code)]
 pub fn establish_connection_pool() -> DbPool {
     establish_connection_pool_with_config(DatabaseConfig::new())
 }
@@ -44,7 +45,8 @@ pub fn establish_connection_pool() -> DbPool {
 pub fn establish_connection_pool_with_config(config: DatabaseConfig) -> DbPool {
     let manager = ConnectionManager::<MysqlConnection>::new(config.url);
     r2d2::Pool::builder()
-        .max_size(15) // Set maximum number of connections
+        .max_size(config.max_connections) // Use max_connections from config
+        .min_idle(Some(config.min_connections)) // Use min_connections from config
         .connection_timeout(std::time::Duration::from_secs(10)) // Set connection timeout
         .test_on_check_out(true) // Test connections when they're retrieved
         .build(manager)
