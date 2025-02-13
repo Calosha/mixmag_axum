@@ -4,6 +4,7 @@ use tokio::net::TcpListener;
 mod config;
 mod models;
 mod routes;
+mod schema;
 mod services;
 
 async fn api_handler() -> &'static str {
