@@ -14,8 +14,7 @@ pub struct DatabaseConfig {
 impl Default for DatabaseConfig {
     fn default() -> Self {
         Self {
-            url: env::var("DATABASE_URL")
-                .expect("DATABASE_URL must be set"),
+            url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
             max_connections: 15,
             min_connections: 5,
         }
@@ -45,11 +44,11 @@ pub fn establish_connection_pool() -> DbPool {
 pub fn establish_connection_pool_with_config(config: DatabaseConfig) -> DbPool {
     let manager = ConnectionManager::<MysqlConnection>::new(config.url);
     r2d2::Pool::builder()
-        .max_size(15)  // Set maximum number of connections
-        .connection_timeout(std::time::Duration::from_secs(10))  // Set connection timeout
-        .test_on_check_out(true)  // Test connections when they're retrieved
+        .max_size(15) // Set maximum number of connections
+        .connection_timeout(std::time::Duration::from_secs(10)) // Set connection timeout
+        .test_on_check_out(true) // Test connections when they're retrieved
         .build(manager)
-        .expect("Failed to create pool")    
+        .expect("Failed to create pool")
 }
 
 #[cfg(test)]
