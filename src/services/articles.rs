@@ -6,7 +6,7 @@ use serde_json::json;
 
 pub async fn get_articles(
     Extension(pool): Extension<DbPool>,
-) -> Result<Json, diesel::result::Error> {
+) -> Result<Json<serde_json::Value>, diesel::result::Error> {
     let mut conn = pool.get().expect("Failed to get DB connection");
     let articles = article.limit(10).load::<Article>(&mut conn)?;
     Ok(Json(json!(articles)))
