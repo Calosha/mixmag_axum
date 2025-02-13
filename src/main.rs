@@ -15,8 +15,8 @@ async fn run(close_rx: oneshot::Receiver<()>) {
     tracing_subscriber::fmt::init();
 
     let db_config = DatabaseConfig::new()
-        .with_max_connections(10)
-        .with_min_connections(5);
+        .with_max_connections(5)
+        .with_min_connections(1);
     let pool = establish_connection_pool_with_config(db_config);
 
     // Define other routes
@@ -44,16 +44,24 @@ async fn run(close_rx: oneshot::Receiver<()>) {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a custom Tokio runtime with adjusted settings
-    let runtime = Builder::new_current_thread() // Use a single-threaded runtime
-        .thread_stack_size(2 * 1024 * 1024) // Reduce the stack size for each thread (2 MB)
+    let runtime = Builder::new_multi_thread() // Use a multi-threaded runtime
+        .worker_threads(2) // Reduce the number of worker threads
+        .thread_stack_size(2 * 1024 * 1024) // Increase the stack size for each thread (2 MB)
         .enable_all()
         .build()?;
 
     // Create a channel for graceful shutdown
     let (close_tx, close_rx) = oneshot::channel();
 
-    // Run the server
-    runtime.block_on(run(close_rx));
+    // Run the server in a new thread with a larger stack size
+    std::thread::Builder::new()
+        .stack_size(8 * 1024 * 1024) // Set the stack size to 8 MB
+        .spawn(move || {
+            runtime.block_on(run(close_rx));
+        })
+        .unwrap()
+        .join()
+        .unwrap();
 
     Ok(())
 }
