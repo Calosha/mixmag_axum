@@ -2,12 +2,12 @@ use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Selectable, Debug, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::articles)]
+#[diesel(table_name = crate::schema::article)]
 pub struct Article {
-    pub id: u32,
-    pub status: u8,
-    pub created: u32,
-    pub updated: u32,
+    pub __id: u32,
+    pub __status: u8,
+    pub __created: u32,
+    pub __updated: u32,
     pub sub_title: Option<String>,
     pub img_wide: Option<String>,
     pub img_top: Option<String>,
@@ -16,7 +16,7 @@ pub struct Article {
     pub img_main: Option<String>,
     pub is_black: Option<u8>,
     pub lj_id: Option<u32>,
-    pub title: Option<String>,
+    pub title: String,
     pub announcement: Option<String>,
     pub description: Option<String>,
     pub tags: Option<Vec<u8>>,
