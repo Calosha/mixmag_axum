@@ -12,11 +12,14 @@ async fn api_handler() -> &'static str {
 #[tokio::main]
 async fn main() {
     dotenvy::dotenv().ok();
+    let pool = config::database::establish_connection_pool();
+
 
     // Define other routes
     let api_routes = Router::new()
         .route("/", get(api_handler))
-        .nest("/health", routes::health::router());
+        .nest("/health", routes::health::router())
+         .layer(Extension(pool));
 
     // Define the route for `/api`
     let app = Router::new().nest("/api", api_routes);
