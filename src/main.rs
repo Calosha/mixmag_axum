@@ -1,15 +1,16 @@
 use axum::{routing::get, Extension, Router};
 use mixmag_axum::config::database::{establish_connection_pool_with_config, DatabaseConfig};
 use mixmag_axum::routes;
-use tokio::net::TcpListener;
+use std::time::Duration;
+use tokio::runtime::Builder;
+use tokio::sync::oneshot;
 use tracing_subscriber;
 
 async fn api_handler() -> &'static str {
     "This is the API endpoint"
 }
 
-#[tokio::main]
-async fn main() {
+async fn run(close_rx: oneshot::Receiver<()>) {
     dotenvy::dotenv().ok();
     tracing_subscriber::fmt::init();
 
@@ -29,9 +30,30 @@ async fn main() {
     let app = Router::new().nest("/api", api_routes);
 
     // Bind to the address (3000)
-    // Start the server
-    let listener = TcpListener::bind("0.0.0.0:3000").await.unwrap();
-
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     println!("Server running at http://0.0.0.0:3000");
-    axum::serve(listener, app).await.unwrap();
+
+    // Start the server with graceful shutdown
+    axum::serve(listener, app)
+        .with_graceful_shutdown(async move {
+            _ = close_rx.await;
+        })
+        .await
+        .unwrap();
+}
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Create a custom Tokio runtime with adjusted settings
+    let runtime = Builder::new_current_thread() // Use a single-threaded runtime
+        .thread_stack_size(2 * 1024 * 1024) // Reduce the stack size for each thread (2 MB)
+        .enable_all()
+        .build()?;
+
+    // Create a channel for graceful shutdown
+    let (close_tx, close_rx) = oneshot::channel();
+
+    // Run the server
+    runtime.block_on(run(close_rx));
+
+    Ok(())
 }
