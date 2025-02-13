@@ -1,9 +1,9 @@
 diesel::table! {
-    articles (id) {
-        id -> Unsigned<Integer>,
-        status -> Unsigned<TinyInt>,
-        created -> Unsigned<Integer>,
-        updated -> Unsigned<Integer>,
+    article (__id) {
+        __id -> Unsigned<Integer>,
+        __status -> Unsigned<TinyInt>,
+        __created -> Unsigned<Integer>,
+        __updated -> Unsigned<Integer>,
         sub_title -> Nullable<Varchar>,
         img_wide -> Nullable<Varchar>,
         img_top -> Nullable<Varchar>,
@@ -12,9 +12,9 @@ diesel::table! {
         img_main -> Nullable<Varchar>,
         is_black -> Nullable<Unsigned<TinyInt>>,
         lj_id -> Nullable<Unsigned<Integer>>,
-        title -> Nullable<Varchar>,
-        announcement -> Nullable<Text>,
-        description -> Nullable<Text>,
+        title -> Varchar,
+        announcement -> Nullable<Mediumtext>,
+        description -> Nullable<Mediumtext>,
         tags -> Nullable<Binary>,
         uid -> Nullable<Unsigned<Integer>>,
         views -> Nullable<Unsigned<Integer>>,
@@ -25,6 +25,6 @@ diesel::table! {
         rate -> Nullable<Unsigned<Integer>>,
         rate_positive -> Nullable<Unsigned<Integer>>,
         rate_negative -> Nullable<Unsigned<Integer>>,
-        rated_list -> Nullable<Binary>,
+        rated_list -> Nullable<Mediumblob>,
     }
 }
