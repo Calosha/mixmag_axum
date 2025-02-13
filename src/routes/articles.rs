@@ -13,7 +13,7 @@ use serde_json::json;
 
 pub fn router() -> Router {
     Router::new()
-        .route("/articles", get(articles_handler))
+        .route("/", get(articles_handler))
 }
 
 async fn articles_handler(
