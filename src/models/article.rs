@@ -54,6 +54,8 @@ pub struct Article {
 #[diesel(table_name = crate::schema::article)] // Ensures it matches the table schema
 pub struct ArticleListItem {
     pub title: String, // Matches `VARCHAR`
+
+    #[diesel(sql_type = Unsigned<Integer>)]
     #[diesel(column_name = pubDate)]
     pub pub_date: Option<u32>, // Matches `Nullable<UNSIGNED INT>`
 }
