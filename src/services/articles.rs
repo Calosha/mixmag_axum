@@ -8,7 +8,7 @@ pub async fn get_article_list(pool: DbPool) -> Result<Vec<ArticleListItem>, dies
 
     // Query only necessary fields to optimize DB performance
     let articles = article
-        .select((__id, title, pubDate))
+        .select((title, pubDate))
         .load::<ArticleListItem>(&mut conn)?;
 
     Ok(articles) // ✅ Return a list of structured results
