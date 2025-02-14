@@ -7,7 +7,7 @@ pub fn router() -> Router {
     Router::new().route("/", get(articles_handler))
 }
 
-async fn articles_handler(Extension(pool): Extension<DbPool>) -> impl IntoResponse {
+pub async fn articles_handler(Extension(pool): Extension<DbPool>) -> impl IntoResponse {
     match get_articles(Extension(pool)).await {
         Ok(articles) => articles,
         Err(err) => {
