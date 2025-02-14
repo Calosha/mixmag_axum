@@ -1,6 +1,7 @@
 use axum::{routing::get, Extension, Router};
 use mixmag_axum::config::database::{establish_connection_pool_with_config, DatabaseConfig};
 use mixmag_axum::routes;
+use std::mem;
 use tokio::net::TcpListener;
 use tracing_subscriber;
 
@@ -33,5 +34,9 @@ async fn main() {
     let listener = TcpListener::bind("0.0.0.0:3000").await.unwrap();
 
     println!("Server running at http://0.0.0.0:3000");
+    // Add this debug code temporarily:
+    println!("Size of u32: {} bytes", mem::size_of::<u32>());
+    println!("Size of i64: {} bytes", mem::size_of::<i64>());
+    println!("Size of usize: {} bytes", mem::size_of::<usize>());
     axum::serve(listener, app).await.unwrap();
 }

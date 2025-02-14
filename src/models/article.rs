@@ -51,11 +51,10 @@ pub struct Article {
 }
 
 #[derive(Queryable, Selectable, Serialize)]
-#[diesel(table_name = crate::schema::article)] // Ensures it matches the table schema
+#[diesel(table_name = crate::schema::article)]
 pub struct ArticleListItem {
-    pub title: String, // Matches `VARCHAR`
-
+    pub title: String,
     #[diesel(sql_type = Unsigned<Integer>)]
     #[diesel(column_name = pubDate)]
-    pub pub_date: Option<u32>, // Matches `Nullable<UNSIGNED INT>`
+    pub pub_date: Option<u32>,
 }
