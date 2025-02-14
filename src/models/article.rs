@@ -49,3 +49,12 @@ pub struct Article {
     #[diesel(column_name = ratedList)]
     pub rated_list: Option<Vec<u8>>,
 }
+
+#[derive(Queryable, Selectable, Serialize)]
+#[diesel(table_name = crate::schema::article)]
+pub struct ArticleListItem {
+    pub title: String,
+    #[diesel(sql_type = Unsigned<Integer>)]
+    #[diesel(column_name = pubDate)]
+    pub pub_date: Option<u32>,
+}
