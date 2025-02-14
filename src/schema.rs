@@ -21,7 +21,7 @@ diesel::table! {
         hash -> Nullable<Varchar>,
         commentAccess -> Nullable<Unsigned<TinyInt>>,
         ccount -> Nullable<Unsigned<Integer>>,
-        pubDate -> Nullable<BigInt>,
+        pubDate -> Nullable<Unsigned<Integer>>,
         rate -> Nullable<Unsigned<Integer>>,
         ratePositive -> Nullable<Unsigned<Integer>>,
         rateNegative -> Nullable<Unsigned<Integer>>,

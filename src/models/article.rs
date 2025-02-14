@@ -40,7 +40,7 @@ pub struct Article {
     pub comment_access: Option<u8>,
     pub ccount: Option<u32>,
     #[diesel(column_name = pubDate)]
-    pub pub_date: Option<i64>,
+    pub pub_date: Option<u32>,
     pub rate: Option<u32>,
     #[diesel(column_name = ratePositive)]
     pub rate_positive: Option<u32>,
@@ -56,5 +56,5 @@ pub struct ArticleListItem {
     pub title: String,
     #[diesel(sql_type = Unsigned<Integer>)]
     #[diesel(column_name = pubDate)]
-    pub pub_date: Option<i64>,
+    pub pub_date: Option<u32>,
 }
