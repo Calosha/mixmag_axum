@@ -13,7 +13,7 @@ use tracing::error;
 pub fn router() -> Router {
     Router::new()
         .route("/", get(article_list_handler))
-        .route("/{id", get(article_by_id_handler))
+        .route("/{id}", get(article_by_id_handler))
 }
 
 pub async fn article_list_handler(Extension(pool): Extension<DbPool>) -> Json<serde_json::Value> {
