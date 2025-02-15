@@ -2,7 +2,6 @@ use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Selectable, Debug, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 #[diesel(table_name = crate::schema::article)]
 pub struct Article {
     #[diesel(column_name = __id)]
@@ -53,6 +52,8 @@ pub struct Article {
 #[derive(Queryable, Selectable, Serialize)]
 #[diesel(table_name = crate::schema::article)]
 pub struct ArticleListItem {
+    #[diesel(column_name = __id)]
+    pub id: u32,
     pub title: String,
     #[diesel(sql_type = Unsigned<Integer>)]
     #[diesel(column_name = pubDate)]
