@@ -2,7 +2,6 @@ use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Selectable, Debug, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 #[diesel(table_name = crate::schema::article)]
 pub struct Article {
     #[diesel(column_name = __id)]
