@@ -13,6 +13,7 @@ use tracing::error;
 
 pub fn router() -> Router {
     Router::new()
+        //TODO: Add overflow protection for page and page_size
         .route("/", get(news_list_handler_paginated))
         .route("/{id}", get(news_by_id_handler))
 }
