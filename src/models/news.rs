@@ -2,8 +2,8 @@ use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Selectable, Debug, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::article)]
-pub struct Article {
+#[diesel(table_name = crate::schema::news)]
+pub struct News {
     #[diesel(column_name = __id)]
     pub id: u32,
     #[diesel(column_name = __status)]
@@ -12,6 +12,8 @@ pub struct Article {
     pub created: u32,
     #[diesel(column_name = __updated)]
     pub updated: u32,
+    #[diesel(column_name = podcastId)]
+    pub podcast_id: Option<u32>,
     #[diesel(column_name = subTitle)]
     pub sub_title: Option<String>,
     #[diesel(column_name = imgWide)]
@@ -50,11 +52,12 @@ pub struct Article {
 }
 
 #[derive(Queryable, Selectable, Serialize)]
-#[diesel(table_name = crate::schema::article)]
-pub struct ArticleListItem {
+#[diesel(table_name = crate::schema::news)]
+pub struct NewsListItem {
     #[diesel(column_name = __id)]
     pub id: u32,
     pub title: String,
     #[diesel(column_name = pubDate)]
     pub pub_date: Option<u32>,
 }
+    

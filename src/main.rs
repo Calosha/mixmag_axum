@@ -26,6 +26,7 @@ async fn main() {
         .route("/", get(api_handler))
         .nest("/health", routes::health::router())
         .nest("/articles", routes::articles::router())
+        .nest("/news", routes::news::router())
         .layer(Extension(pool));
     // In your app setup
     let cors = if cfg!(debug_assertions) {

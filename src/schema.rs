@@ -28,3 +28,34 @@ diesel::table! {
         ratedList -> Nullable<Mediumblob>,
     }
 }
+diesel::table! {
+    news (__id) {
+        __id -> Unsigned<Integer>,
+        __status -> Unsigned<TinyInt>,
+        __created -> Unsigned<Integer>,
+        __updated -> Unsigned<Integer>,
+        podcastId -> Nullable<Unsigned<Integer>>,
+        subTitle -> Nullable<Varchar>,
+        imgWide -> Nullable<Varchar>,
+        imgTop -> Nullable<Varchar>,
+        isMain -> Nullable<Unsigned<TinyInt>>,
+        announcementMain -> Nullable<Varchar>,
+        imgMain -> Nullable<Varchar>,
+        isBlack -> Nullable<Unsigned<TinyInt>>,
+        ljId -> Nullable<Unsigned<Integer>>,
+        title -> Varchar,
+        announcement -> Nullable<Mediumtext>,
+        description -> Nullable<Mediumtext>,
+        tags -> Nullable<Binary>,
+        uid -> Nullable<Unsigned<Integer>>,
+        views -> Nullable<Unsigned<Integer>>,
+        hash -> Nullable<Varchar>,
+        commentAccess -> Nullable<Unsigned<TinyInt>>,
+        ccount -> Nullable<Unsigned<Integer>>,
+        pubDate -> Nullable<Unsigned<Integer>>,
+        rate -> Nullable<Unsigned<Integer>>,
+        ratePositive -> Nullable<Unsigned<Integer>>,
+        rateNegative -> Nullable<Unsigned<Integer>>,
+        ratedList -> Nullable<Mediumblob>,
+    }
+}
