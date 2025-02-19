@@ -59,3 +59,30 @@ diesel::table! {
         ratedList -> Nullable<Mediumblob>,
     }
 }
+diesel::table! {
+    cd_review (__id) {
+        __id -> Unsigned<Integer>,
+        __status -> Unsigned<TinyInt>,
+        __created -> Unsigned<Integer>,
+        __updated -> Unsigned<Integer>,
+        nameId -> Nullable<Unsigned<Integer>>,
+        title -> Nullable<Varchar>,
+        labelList -> Nullable<Binary>,
+        genreList -> Nullable<Binary>,
+        tags -> Nullable<Binary>,
+        year -> Nullable<SmallInt>,
+        trackListUrl -> Nullable<Varchar>,
+        trackList -> Nullable<Mediumblob>,
+        description -> Nullable<Mediumtext>,
+        imgBig -> Nullable<Varchar>,
+        uid -> Nullable<Unsigned<Integer>>,
+        views -> Nullable<Unsigned<Integer>>,
+        hash -> Nullable<Varchar>,
+        ccount -> Nullable<Unsigned<Integer>>,
+        pubDate -> Nullable<Unsigned<Integer>>,
+        rate -> Nullable<Unsigned<Integer>>,
+        ratePositive -> Nullable<Unsigned<Integer>>,
+        rateNegative -> Nullable<Unsigned<Integer>>,
+        ratedList -> Nullable<Mediumblob>,
+    }
+}

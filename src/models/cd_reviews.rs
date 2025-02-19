@@ -2,8 +2,8 @@ use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Selectable, Debug, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::news)]
-pub struct News {
+#[diesel(table_name = crate::schema::cd_review)]
+pub struct CDReview {
     #[diesel(column_name = __id)]
     pub id: u32,
     #[diesel(column_name = __status)]
@@ -12,33 +12,25 @@ pub struct News {
     pub created: u32,
     #[diesel(column_name = __updated)]
     pub updated: u32,
-    #[diesel(column_name = podcastId)]
-    pub podcast_id: Option<u32>,
-    #[diesel(column_name = subTitle)]
-    pub sub_title: Option<String>,
-    #[diesel(column_name = imgWide)]
-    pub img_wide: Option<String>,
-    #[diesel(column_name = imgTop)]
-    pub img_top: Option<String>,
-    #[diesel(column_name = isMain)]
-    pub is_main: Option<u8>,
-    #[diesel(column_name = announcementMain)]
-    pub announcement_main: Option<String>,
-    #[diesel(column_name = imgMain)]
-    pub img_main: Option<String>,
-    #[diesel(column_name = isBlack)]
-    pub is_black: Option<u8>,
-    #[diesel(column_name = ljId)]
-    pub lj_id: Option<u32>,
-    pub title: String,
-    pub announcement: Option<String>,
-    pub description: Option<String>,
+    #[diesel(column_name = nameId)]
+    pub name_id: Option<u32>,
+    pub title: Option<String>,
+    #[diesel(column_name = labelList)]
+    pub label_list: Option<Vec<u8>>,
+    #[diesel(column_name = genreList)]
+    pub genre_list: Option<Vec<u8>>,
     pub tags: Option<Vec<u8>>,
+    pub year: Option<i16>,
+    #[diesel(column_name = trackListUrl)]
+    pub track_list_url: Option<String>,
+    #[diesel(column_name = trackList)]
+    pub track_list: Option<Vec<u8>>,
+    pub description: Option<String>,
+    #[diesel(column_name = imgBig)]
+    pub img_big: Option<String>,
     pub uid: Option<u32>,
     pub views: Option<u32>,
     pub hash: Option<String>,
-    #[diesel(column_name = commentAccess)]
-    pub comment_access: Option<u8>,
     pub ccount: Option<u32>,
     #[diesel(column_name = pubDate)]
     pub pub_date: Option<u32>,
@@ -52,11 +44,11 @@ pub struct News {
 }
 
 #[derive(Queryable, Selectable, Serialize)]
-#[diesel(table_name = crate::schema::news)]
-pub struct NewsListItem {
+#[diesel(table_name = crate::schema::cd_review)]
+pub struct CDReviewListItem {
     #[diesel(column_name = __id)]
     pub id: u32,
-    pub title: String,
+    pub title: Option<String>,
     #[diesel(column_name = pubDate)]
     pub pub_date: Option<u32>,
 }
