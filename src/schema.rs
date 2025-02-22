@@ -1,3 +1,7 @@
+use diesel::allow_tables_to_appear_in_same_query;
+
+allow_tables_to_appear_in_same_query!(cd_review, name);
+
 diesel::table! {
     article (__id) {
         __id -> Unsigned<Integer>,
@@ -83,6 +87,22 @@ diesel::table! {
         rate -> Nullable<Unsigned<Integer>>,
         ratePositive -> Nullable<Unsigned<Integer>>,
         rateNegative -> Nullable<Unsigned<Integer>>,
+        ratedList -> Nullable<Mediumblob>,
+    }
+}
+diesel::table! {
+    name (__id) {
+        __id -> Unsigned<Integer>,
+        __status -> Unsigned<TinyInt>,
+        __created -> Unsigned<Integer>,
+        __updated -> Unsigned<Integer>,
+        ruName -> Nullable<Varchar>,
+        #[sql_name = "name"]
+        name_col -> Nullable<Varchar>,
+        pubDate -> Unsigned<Integer>,
+        rate -> Unsigned<Integer>,
+        ratePositive -> Unsigned<Integer>,
+        rateNegative -> Unsigned<Integer>,
         ratedList -> Nullable<Mediumblob>,
     }
 }

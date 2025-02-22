@@ -52,3 +52,11 @@ pub struct CDReviewListItem {
     #[diesel(column_name = pubDate)]
     pub pub_date: Option<u32>,
 }
+
+#[derive(Serialize)]
+pub struct CDReviewListItemWithName {
+    pub id: u32,
+    pub title: Option<String>,
+    pub pub_date: Option<u32>,
+    pub name: Option<String>,
+}
