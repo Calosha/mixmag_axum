@@ -28,6 +28,7 @@ async fn main() {
         .nest("/articles", routes::articles::router())
         .nest("/news", routes::news::router())
         .nest("/cd_reviews", routes::cd_reviews::router())
+        .nest("/interview", routes::interview::router())
         .layer(Extension(pool));
     // In your app setup
     let cors = if cfg!(debug_assertions) {
